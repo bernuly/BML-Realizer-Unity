@@ -41,20 +41,25 @@ In out example, we are using this BML schema
 You need to define the package 
 
 		using AssetPackage;
-		using BMLNet;
+		using BMLRealizer;
 
 Inside your class, you need to create variable for RageBMLNet
 
-		RageBMLNet bml = new RageBMLNet();
+		RageBMLRealizer bml = new RageBMLRealizer();
 
-To parse BML schema from file text
+In order to monitor the BML synchronization time, we need to assign the callback
 
-		bml.ParseFromFile("assets/BML.xml");
+        bml.OnSyncPointCompleted += SyncPointCompleted;
 		
 To parse BML schema from string 
 
         bml.ParseFromString(System.IO.File.ReadAllText("assets/BML.xml"));
 
+
+**not supported yet** To parse BML schema from file text
+
+		bml.ParseFromFile("assets/BML.xml");
+		
 Call Update eachtime Unity update the frame
 		
 		void Update () {
@@ -62,9 +67,7 @@ Call Update eachtime Unity update the frame
 			bml.Update(Time.deltaTime);
 		}
 		
-In order to monitor the BML synchronization time, we need to assign the callback
 
-        bml.OnSyncPointCompleted += SyncPointCompleted;
 		
 And this is the callback for synchronization
 
